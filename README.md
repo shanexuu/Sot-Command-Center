@@ -2,6 +2,11 @@
 
 A comprehensive Next.js application for the Summer of Tech Command Center, featuring AI-powered student and employer management tools.
 
+## 🌍 Live Demo
+
+**🔗 [View Live Application](https://sot-command-center.vercel.app/)**
+
+
 ## 🤖 AI Integration
 
 This application uses **OpenAI GPT-4** for advanced AI features:
@@ -88,13 +93,6 @@ For development and testing purposes, you can use these credentials:
 - **Language**: TypeScript
 - **Deployment**: Vercel
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-- Supabase account
 
 ## 📁 Project Structure
 
