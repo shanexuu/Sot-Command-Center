@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   title: 'SoT Command Center',
   description:
     'Summer of Tech Command Center - AI-powered student and employer management',
+  icons: {
+    icon: [
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+    ],
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
 }
 
 export default function RootLayout({

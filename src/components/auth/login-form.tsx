@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -49,8 +50,14 @@ export function LoginForm() {
       <Card className="w-full max-w-md border shadow-2xl">
         <CardHeader className="space-y-1 p-8">
           <div className="flex items-center justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <Lock className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center overflow-hidden">
+              <Image
+                src="/logo.png"
+                alt="SoT Command Center Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+              />
             </div>
           </div>
           <CardTitle className="text-3xl font-bold text-center text-foreground">

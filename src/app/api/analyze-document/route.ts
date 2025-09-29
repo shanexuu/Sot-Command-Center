@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import pdf from 'pdf-parse'
+import { parsePDFWithFallback } from '@/lib/pdf-parser'
+import path from 'path'
+import fs from 'fs'
 
 interface AnalysisResult {
   analysisScore: number
@@ -48,6 +50,35 @@ function createServiceRoleClient() {
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if this is a request for a test file
+    const url = new URL(request.url)
+    const testFile = url.searchParams.get('testFile')
+
+    if (testFile) {
+      // Handle test file request
+      const filePath = path.join(process.cwd(), 'test', 'data', testFile)
+      console.log('Loading test PDF from:', filePath)
+
+      try {
+        const buffer = fs.readFileSync(filePath)
+        const data = await parsePDFWithFallback(buffer)
+
+        return NextResponse.json({
+          text: data.text,
+          pages: data.pages,
+        })
+      } catch (error) {
+        console.error('Error reading test file:', error)
+        return NextResponse.json(
+          {
+            error: `Test file not found: ${error}`,
+          },
+          { status: 404 }
+        )
+      }
+    }
+
+    // Handle normal request
     const {
       studentId,
       documentType,
@@ -957,9 +988,9 @@ async function extractTextFromPDFUrl(pdfUrl: string): Promise<string> {
     console.log('🔍 PDF buffer size:', pdfBuffer.byteLength, 'bytes')
 
     // Parse PDF using pdf-parse
-    const data = await pdf(Buffer.from(pdfBuffer))
+    const data = await parsePDFWithFallback(Buffer.from(pdfBuffer))
     console.log('🔍 PDF parsing result:', {
-      pages: data.numpages,
+      pages: data.pages,
       textLength: data.text.length,
       info: data.info,
     })
