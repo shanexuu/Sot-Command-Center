@@ -61,4 +61,3 @@ pids
 
 # Supabase
 .supabase/
-database/
